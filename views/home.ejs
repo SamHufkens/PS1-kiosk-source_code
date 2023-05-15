@@ -1,0 +1,152 @@
+<%- include("./partials/head")  %>
+
+<body>
+    <!--SLEEPING MODE-->
+    <div class="sleeping-screen">
+        <div class="sleeping-container">
+            <div class="sleeping-screen-content">
+            <div class="weather-sleeping">
+                <div><img class="icon-sleeping" src="" alt="" width="60" ></div>
+                <div class="temp&city"><span id="temp-sleeping"></span>, <span id="city-sleeping"></span></div>
+            </div>
+            <div class="date-time-sleeping">
+                <div id="time-sleeping"></div>
+                <div id="date-sleeping"></div>
+            </div>
+        </div>
+        </div>
+        
+    </div>
+
+    <!--HOME SCREEN-->
+    <div class="container">
+        <div class="weather-date-time">
+            <div class="date-time">
+                <div id="date"></div>
+                <div id="time"></div>
+            </div>
+            <div class="weather">
+                <div><img class="icon" src="" alt="" width="60" ></div>
+                <div class="temp&city"><span id="temp"></span>, <span id="city"></span></div>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column1">
+                <h1>Welkom!</h1>
+                <div class="search">
+                    <p class="info">Zoek je familielid, vriend, vriendin, ... aan de <br> hand van hun initialen.</p>
+                    <form id="search-form">
+                        <input type="text" name="term" placeholder="ex. MJ">
+                        <button type="submit">Zoek</button>
+                        <p id="err"></p>
+                    </form>
+                    <div class="all-results">
+                        <p id="result"></p>
+                        <ul id="search-results"></ul>
+                    </div>
+                </div>
+            </div>
+            <div class="column2">
+                <div class="activities">
+                    <p>Komende activiteiten</p>
+                    <div class="activity">
+                    <% if (activities.length === 0) { %>
+                        <p>Er zijn geen geplande activiteiten.</p>
+                    <% } else { %>
+                        <% activities.forEach((activity) => {  %>
+                            <div class="one-activity">
+                                <div class="date"><%= activity.date %></div>
+                                <div class="name"><%= activity.title %> - <%= activity.time %></div>
+                                <div class="locatie"><span>Locatie:</span> <%= activity.location %></div>
+                            </div>
+                        <% }) %>
+                    <% } %> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--RESIDENT INFO-->
+        <div id="residentInfoDiv"></div>
+    </div>
+    <div id="backdrop"></div>
+    <script>
+        const form = document.getElementById('search-form')
+        const resultsList = document.getElementById('search-results')
+        const residentInfo = document.getElementById('residentInfoDiv')
+        const result = document.getElementById('result')
+        const error = document.getElementById('err');
+        const backDrop = document.getElementById('backdrop');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            residentInfo.innerHTML = ""
+            error.textContent = ""
+            const searchTerm = e.target.elements.term.value;
+            console.log(searchTerm)
+            if (searchTerm === '') {
+                error.textContent = "Vul een initiaal in."
+            } else {
+                const res = await fetch(`/search?term=${searchTerm}`)
+                const residents = await res.json()
+                result.style.display = "block";
+                if (residents.length <= 0) {
+                    result.innerText = `Geen bewoner(s) gevonden.`
+                } else {
+                    if (residents.length === 1) {
+                    result.innerText = `${residents.length} resultaat:`
+                    } else {
+                        result.innerText = `${residents.length} resultaten:`
+                    }
+                }
+
+                resultsList.innerHTML = '';
+                residents.forEach((resident) => {
+                    const listItem = document.createElement('li')
+                    const link = document.createElement('a')
+                    
+                    link.textContent = resident.initialen
+                    link.href = '#';
+                    link.setAttribute('data-id', resident._id)
+
+                    link.addEventListener('click', async () => {
+                        residentInfo.style.display = "block";
+                        backDrop.style.display = "block";
+                        console.log(resident._id)
+                        const residentRes = await fetch(`/${resident._id}`)
+                        const residentInfoData = await residentRes.json()
+
+
+                        const closeBtn = document.createElement('button')
+                        closeBtn.textContent = 'x'
+                        closeBtn.id = "closeBtn"
+                         
+                        residentInfo.innerHTML = `
+                            <h2>${residentInfoData.initialen}</h2>
+                            <hr>
+                            <p class="afdeling"><span>Afdeling:<span> ${residentInfoData.afdeling}</p>
+                            <p class="kamernr"><span>Kamernummer:<span> ${residentInfoData.kamernummer}</p>
+                            <p class="plattegrond">Plattegrond:</p>
+                            <img src=${residentInfoData.plattegrond} width="460" height="280" />
+                        `
+                        residentInfo.appendChild(closeBtn)
+                        closeBtn.addEventListener('click', (e) => {
+                            residentInfo.style.display = "none";
+                            backDrop.style.display = "none"
+                        })
+                        
+                    })
+
+                    listItem.appendChild(link)
+                    resultsList.appendChild(listItem)
+                })
+            }
+
+            
+            
+            
+        })
+    </script>
+</body>
+
+<%- include("./partials/footer")  %>

@@ -1,0 +1,283 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 16px;
+    background-color: #EDEDED;
+    font-family: sans-serif;
+}
+
+.container {
+    max-width: 1300px;
+    margin: auto;
+    position: relative;
+}
+
+/* date time and weather */
+
+.weather-date-time {
+    display: flex;
+    margin-top: 20px;
+}
+
+.date-time {
+    font-size: 1.8rem;
+    flex: 1;
+   
+}
+
+.weather {
+    display: flex;
+    align-items: center; 
+    text-align: right;
+    justify-content: flex-end;
+    background-color: rgba(217, 217, 217, 0.59);
+    margin-bottom: 10px;
+    border-radius: 30px;
+    padding-right: 10px;
+    margin-left: 20px;
+}
+
+.weather span {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+/* COLUMN 1*/
+
+.columns  {
+    display: flex;
+}
+
+
+
+.column1 {
+    margin-top: 20px;
+}
+
+.column1 h1 {
+    font-size: 5.6rem;
+}
+
+.column1 .search {
+    font-size: 1.5rem;
+    background-color: rgba(217, 217, 217, 0.59);
+    border-radius: 12px;
+    padding: 20px;
+    height: 500px;
+    width: 800px;
+}
+
+.column1 .search .info {
+    font-size: 1.8rem;
+}
+
+.column1 .search p {
+    font-weight: bold;
+}
+
+#search-form input {
+    font-size: 25px;
+    margin: 20px 0;
+    border-radius: 12px;
+    padding: 10px 10px;
+    border: none;
+    background-color: #C7C4C4;
+}
+
+#search-form #err {
+    color: red;
+    font-size: 0.8rem;
+}
+
+#search-form button {
+    font-size: 25px;
+    padding: 10px 10px;
+    background-color: #DD9933;
+    color: white;
+    font-weight: bold;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+}
+
+.all-results{
+    margin-top: 20px;
+}
+
+.search #result {
+    display: none;
+}
+
+.all-results ul {
+    list-style-type: none;
+    display: inline-block;
+}
+
+.all-results ul li {
+    background-color: #C7C4C4;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 10px;
+    border-radius: 8px
+}
+
+.all-results ul li a {
+    text-decoration: none;
+    color: #333;
+    padding-left: 10px;
+    padding-right: 100px;
+}
+
+
+/* RESIDENT INFO */
+#residentInfoDiv {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #DEDEDE;
+    padding: 20px;
+    border-radius: 12px;
+    z-index: 20;
+    -webkit-box-shadow: 0px 0px 167px -26px rgba(0,0,0,1);
+    -moz-box-shadow: 0px 0px 167px -26px rgba(0,0,0,1);
+    box-shadow: 0px 0px 167px -26px rgba(0,0,0,1);
+
+}
+
+#residentInfoDiv h2 {
+    font-size: 3rem;
+}
+
+#residentInfoDiv  img {
+    border-radius: 12px;
+}
+
+#residentInfoDiv span, .plattegrond {
+    font-weight: bold;
+}
+
+.afdeling {
+    margin-top: 15px;
+}
+
+.afdeling,.kamernr, .plattegrond {
+    font-size: 20px;
+    margin-top: 5px;
+}
+
+#closeBtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 40px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+#backdrop {
+    background: rgba(255, 255, 255, 0);
+    backdrop-filter: blur(13.4px);
+    -webkit-backdrop-filter: blur(13.4px);
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    z-index: 10;
+}
+
+
+
+/* COLUMN 2 */ 
+
+.column2 {
+    margin-left: 50px;
+}
+
+.activities {
+    background-color: rgba(217, 217, 217, 0.59);
+    width: 450px;
+    border-radius: 12px;
+    padding: 20px;
+    height: 620px;
+}
+
+.activities p {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.one-activity {
+    margin-top: 20px;
+}
+
+.activities .activity {
+    margin-top: 20px;
+}
+
+.activity .date {
+    font-size: 0.8rem;
+}
+
+.activity p {
+    font-size: 1.3rem;
+}
+
+.activity .name {
+    font-size: 30px;
+}
+
+.activity .locatie span {
+    color: #DD9933;
+}
+
+/* sleeping mode */ 
+.sleeping-screen {
+    display: none;
+}
+
+.sleeping-container  {
+    background-image: url("../img/small.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.sleeping-screen-content {
+    display: grid;
+    place-content: center;
+    text-align: center;
+    
+}
+
+.weather-sleeping {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+}
+
+#date-sleeping {
+    font-size: 3.5rem;
+}
+
+#time-sleeping {
+    font-size: 6.5rem;
+    font-weight: bolder;
+}
+
+
+

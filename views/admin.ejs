@@ -1,0 +1,100 @@
+<%- include("./partials/head")  %>
+
+<h1>Voeg bewoners toe</h1>
+
+<!--<form action="/submitResident" method="post" enctype="multipart/form-data">
+    <label for="">Initial</label>
+    <input type="text" id="initial" name="initial"><br>
+
+    <label>Afdeling</label>
+    <input type="number" id="afdeling" name="afdeling"><br>
+
+    <label>kamernr</label>
+    <input type="number" id="kamer" name="kamernummer"><br>
+
+    <label>actief</label>
+    <input type="checkbox" id="actief" name="actief" value="true"><br>
+
+    <label>plattegrond</label>
+    <input type="text" id="plattegrond" name="plattegrond"><br>
+
+    <input type="submit" id="btn">
+</form>
+
+<hr>
+
+<h1>Voeg een activiteit toe</h1>
+
+<form action="/submitActivity" method="post">
+    <label>Naam van activiteit</label>
+    <input type="text" id="title" name="title"><br>
+
+    <label>Datum</label>
+    <input type="text" id="date" name="date"><br>
+
+    <label>Tijd</label>
+    <input type="text" id="time" name="time"><br>
+
+    <label>Locatie</label>
+    <input type="text" id="location" name="location"><br>
+
+    <input type="submit" id="btn2">
+</form>
+
+<script>
+    const btn = document.getElementById('btn')
+    const initial = document.getElementById('initial')
+    const afdeling = document.getElementById('afdeling')
+    const kamernr= document.getElementById('kamer')
+    const actief = document.getElementById('actief')
+    const plattegrond = document.getElementById('plattegrond')
+
+    const title = document.getElementById('title')
+    const date = document.getElementById('date')
+    const time = document.getElementById('time')
+    const location = document.getElementById('location')
+    const btn2 = document.getElementById('btn2')
+
+    btn.addEventListener('click', async (e) => {
+        e.preventDefault()
+        try {
+            const res = await fetch('/submitResident', {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    initialen: initial.value,
+                    afdeling: afdeling.value,
+                    kamernummer: kamernr.value,
+                    actief: actief.value,
+                    plattegrond: plattegrond.value
+                }),
+            })
+            const data = await res.json()
+        }
+        catch (err) {
+            console.log(err)
+        }
+    })
+
+    btn2.addEventListener('click', async (e) => {
+        e.preventDefault()
+        try {
+            const res = await fetch("/submitActivity", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    title: title.value,
+                    date: date.value,
+                    time: time.value,
+                    location: location.value,
+                }),
+            })
+            const data = await res.json()
+        }
+        catch (err) {
+            console.log(err)
+        }
+    })
+</script>-->
+
+<%- include("./partials/footer")  %>
